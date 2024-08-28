@@ -1,28 +1,36 @@
 package com.anubhavauth.bentobackend.service;
 
-import com.anubhavauth.bentobackend.entities.UserEntity;
+import com.anubhavauth.bentobackend.entities.persistentEntities.UserEntity;
 import com.anubhavauth.bentobackend.entities.enums.Roles;
 import com.anubhavauth.bentobackend.repository.UserRepository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
+
 
 @Service
 public class UserService {
     private final UserRepository userRepository;
+    private final RestaurantService restaurantService;
 
     @Autowired
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository,@Lazy RestaurantService restaurantService) {
         this.userRepository = userRepository;
+        this.restaurantService = restaurantService;
     }
 
     public void registerUser(UserEntity user) {
         if (user.getRoles().contains(Roles.RESTAURANT_OWNER)){
             user.setRestaurantIds(Collections.emptyList());
+        }
+        if (user.getRoles().contains(Roles.CUSTOMER)){
+            user.setReviewIds(Collections.emptyList());
         }
         userRepository.save(user);
     }
@@ -36,6 +44,14 @@ public class UserService {
         userRepository.save(user);
     }
     public void deleteUser(ObjectId id) {
+        UserEntity userById = getUserById(id).get();
+        if (userById.getRoles().contains(Roles.RESTAURANT_OWNER)) {
+            List<ObjectId> restaurantIds = userById.getRestaurantIds();
+            for (ObjectId restaurantId : restaurantIds) {
+                restaurantService.deleteRestaurant(restaurantId);
+            }
+        }
         userRepository.deleteById(id);
+
     }
 }

@@ -1,7 +1,11 @@
 package com.anubhavauth.bentobackend.controller;
 
-import com.anubhavauth.bentobackend.entities.*;
+import com.anubhavauth.bentobackend.entities.dtos.MenuItemDTO;
+import com.anubhavauth.bentobackend.entities.dtos.RestaurantDTO;
 import com.anubhavauth.bentobackend.entities.enums.Roles;
+import com.anubhavauth.bentobackend.entities.persistentEntities.MenuItemEntity;
+import com.anubhavauth.bentobackend.entities.persistentEntities.RestaurantEntity;
+import com.anubhavauth.bentobackend.entities.persistentEntities.UserEntity;
 import com.anubhavauth.bentobackend.service.MenuService;
 import com.anubhavauth.bentobackend.service.RestaurantService;
 import com.anubhavauth.bentobackend.service.UserService;
@@ -77,6 +81,7 @@ public class RestaurantController {
                                 .phone(restaurantdto.getPhone())
                                 .email(restaurantdto.getEmail())
                                 .cuisines(restaurantdto.getCuisines())
+                                .reviews(null)
                                 .rating(null)
                                 .openingHours(restaurantdto.getOpeningHours())
                                 .menuItems(Collections.emptyList())
@@ -147,13 +152,14 @@ public class RestaurantController {
 
 
     @PostMapping("/menu")
-    public ResponseEntity<String> addMenuItem(@RequestParam ObjectId restaurantID, @RequestBody MenuItemDTO menuitem) {
+    public ResponseEntity<String> addMenuItem(@RequestParam ObjectId restaurantId, @RequestBody MenuItemDTO menuitem) {
         try {
 
-            menuitem.setRestaurantId(restaurantID);
+            menuitem.setRestaurantId(restaurantId);
 
             menuService.createMenuItem(
                     MenuItemEntity.builder()
+                            .restaurantId(menuitem.getRestaurantId())
                             .name(menuitem.getName())
                             .description(menuitem.getDescription())
                             .price(menuitem.getPrice())
@@ -173,9 +179,9 @@ public class RestaurantController {
 
 
     @GetMapping("/menu")
-    public ResponseEntity<List<MenuItemEntity>> getMenuRestaurant(@RequestParam ObjectId restaurantID) {
+    public ResponseEntity<List<MenuItemEntity>> getMenuRestaurant(@RequestParam ObjectId restaurantId) {
         try {
-            RestaurantEntity restaurantById = restaurantService.getRestaurantById(restaurantID);
+            RestaurantEntity restaurantById = restaurantService.getRestaurantById(restaurantId);
             if (restaurantById == null) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }

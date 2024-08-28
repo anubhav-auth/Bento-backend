@@ -1,8 +1,9 @@
 package com.anubhavauth.bentobackend.service;
 
 
-import com.anubhavauth.bentobackend.entities.RestaurantEntity;
-import com.anubhavauth.bentobackend.entities.UserEntity;
+import com.anubhavauth.bentobackend.entities.persistentEntities.RestaurantEntity;
+import com.anubhavauth.bentobackend.entities.persistentEntities.UserEntity;
+import com.anubhavauth.bentobackend.repository.MenuRepository;
 import com.anubhavauth.bentobackend.repository.RestaurantRepository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +16,13 @@ import java.util.Optional;
 public class RestaurantService {
     private final RestaurantRepository restaurantRepository;
     private final UserService userService;
+    private final MenuRepository menuRepository;
 
     @Autowired
-    public RestaurantService(RestaurantRepository restaurantRepository, UserService userService) {
+    public RestaurantService(RestaurantRepository restaurantRepository, UserService userService, MenuRepository menuRepository) {
         this.restaurantRepository = restaurantRepository;
         this.userService = userService;
+        this.menuRepository = menuRepository;
     }
 
     public List<RestaurantEntity> getAllRestaurants() {
@@ -44,8 +47,16 @@ public class RestaurantService {
         restaurantRepository.save(restaurant);
     }
 
-    public void deleteRestaurant(ObjectId id) {
-        restaurantRepository.deleteById(id);
+    public void deleteRestaurant(ObjectId restaurantId){
+        Optional<RestaurantEntity> byId = restaurantRepository.findById(restaurantId);
+        Optional<UserEntity> userById = userService.getUserById(byId.get().getOwnerId());
+        if (userById.isPresent()) {
+            List<ObjectId> menuItems = byId.get().getMenuItems();
+            menuRepository.deleteAllById(menuItems);
+            userById.get().getRestaurantIds().remove(restaurantId);
+            userService.updateUser(userById.get());
+            restaurantRepository.delete(byId.get());
+        }
     }
 
     public List<RestaurantEntity> getRestaurantsByName(String name) {

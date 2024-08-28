@@ -1,4 +1,4 @@
-package com.anubhavauth.bentobackend.entities;
+package com.anubhavauth.bentobackend.entities.persistentEntities;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

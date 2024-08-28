@@ -1,4 +1,4 @@
-package com.anubhavauth.bentobackend.entities;
+package com.anubhavauth.bentobackend.entities.persistentEntities;
 
 import com.anubhavauth.bentobackend.entities.enums.DishCategory;
 import lombok.AllArgsConstructor;
@@ -12,11 +12,14 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.time.LocalDateTime;
 
 
+@Document(collection = "menu-items")
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class MenuItemDTO {
+public class MenuItemEntity {
+    @Id
+    private ObjectId id;
     private ObjectId restaurantId;
     private String name;
     private String description;
@@ -24,6 +27,8 @@ public class MenuItemDTO {
     private String imageUrl;
     private Boolean availability;
     private DishCategory category;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 }
 /*
 •	Relationships:

@@ -1,4 +1,4 @@
-package com.anubhavauth.bentobackend.entities;
+package com.anubhavauth.bentobackend.entities.persistentEntities;
 
 import com.anubhavauth.bentobackend.entities.enums.OrderStatus;
 import com.anubhavauth.bentobackend.entities.enums.PaymentStatus;

@@ -1,8 +1,8 @@
 package com.anubhavauth.bentobackend.service;
 
-import com.anubhavauth.bentobackend.entities.MenuItemDTO;
-import com.anubhavauth.bentobackend.entities.MenuItemEntity;
-import com.anubhavauth.bentobackend.entities.RestaurantEntity;
+import com.anubhavauth.bentobackend.entities.dtos.MenuItemDTO;
+import com.anubhavauth.bentobackend.entities.persistentEntities.MenuItemEntity;
+import com.anubhavauth.bentobackend.entities.persistentEntities.RestaurantEntity;
 import com.anubhavauth.bentobackend.repository.MenuRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
@@ -19,13 +19,11 @@ import java.util.Optional;
 @Slf4j
 public class MenuService {
     private final MenuRepository menuRepository;
-    private final UserService userService;
     private final RestaurantService restaurantService;
 
     @Autowired
-    public MenuService(MenuRepository menuRepository, UserService userService, RestaurantService restaurantService) {
+    public MenuService(MenuRepository menuRepository, RestaurantService restaurantService) {
         this.menuRepository = menuRepository;
-        this.userService = userService;
         this.restaurantService = restaurantService;
     }
 

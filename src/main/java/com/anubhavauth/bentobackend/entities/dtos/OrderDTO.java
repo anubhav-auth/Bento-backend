@@ -1,5 +1,6 @@
-package com.anubhavauth.bentobackend.entities;
+package com.anubhavauth.bentobackend.entities.dtos;
 
+import com.anubhavauth.bentobackend.entities.persistentEntities.MenuItemEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

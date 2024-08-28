@@ -1,7 +1,7 @@
 package com.anubhavauth.bentobackend.controller;
 
 
-import com.anubhavauth.bentobackend.entities.PaymentDTO;
+import com.anubhavauth.bentobackend.entities.dtos.PaymentDTO;
 import org.bson.types.ObjectId;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

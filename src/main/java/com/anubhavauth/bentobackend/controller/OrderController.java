@@ -1,8 +1,7 @@
 package com.anubhavauth.bentobackend.controller;
 
 
-import com.anubhavauth.bentobackend.entities.OrderDTO;
-import com.anubhavauth.bentobackend.entities.OrderEntity;
+import com.anubhavauth.bentobackend.entities.dtos.OrderDTO;
 import com.anubhavauth.bentobackend.entities.enums.OrderStatus;
 import org.bson.types.ObjectId;
 import org.springframework.http.HttpStatus;

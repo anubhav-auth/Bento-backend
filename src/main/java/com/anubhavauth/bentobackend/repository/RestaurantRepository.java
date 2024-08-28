@@ -1,6 +1,6 @@
 package com.anubhavauth.bentobackend.repository;
 
-import com.anubhavauth.bentobackend.entities.RestaurantEntity;
+import com.anubhavauth.bentobackend.entities.persistentEntities.RestaurantEntity;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.repository.MongoRepository;
 

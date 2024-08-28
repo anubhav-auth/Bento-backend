@@ -1,4 +1,4 @@
-package com.anubhavauth.bentobackend.entities;
+package com.anubhavauth.bentobackend.entities.dtos;
 
 
 import com.anubhavauth.bentobackend.entities.enums.Cuisines;

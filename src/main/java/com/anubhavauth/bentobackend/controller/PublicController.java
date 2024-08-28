@@ -1,8 +1,8 @@
 package com.anubhavauth.bentobackend.controller;
 
 
-import com.anubhavauth.bentobackend.entities.UserDTO;
-import com.anubhavauth.bentobackend.entities.UserEntity;
+import com.anubhavauth.bentobackend.entities.dtos.UserDTO;
+import com.anubhavauth.bentobackend.entities.persistentEntities.UserEntity;
 import com.anubhavauth.bentobackend.entities.enums.Roles;
 import com.anubhavauth.bentobackend.service.UserService;
 import org.springframework.http.HttpStatus;
@@ -10,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
-import java.util.Collections;
 import java.util.List;
 
 @RestController

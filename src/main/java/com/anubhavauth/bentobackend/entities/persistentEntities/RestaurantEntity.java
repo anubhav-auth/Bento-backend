@@ -1,4 +1,4 @@
-package com.anubhavauth.bentobackend.entities;
+package com.anubhavauth.bentobackend.entities.persistentEntities;
 
 import com.anubhavauth.bentobackend.entities.enums.Cuisines;
 import lombok.AllArgsConstructor;
@@ -29,6 +29,7 @@ public class RestaurantEntity {
     private String email;
     private List<Cuisines> cuisines;
     private Double rating;
+    private List<ObjectId> reviews;
     private List<Map<DayOfWeek, String>> openingHours;
     private List<ObjectId> menuItems;
     private List<ObjectId> orders;

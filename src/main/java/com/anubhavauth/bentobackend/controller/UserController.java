@@ -1,13 +1,13 @@
 package com.anubhavauth.bentobackend.controller;
 
-import com.anubhavauth.bentobackend.entities.UserDTO;
-import com.anubhavauth.bentobackend.entities.UserEntity;
+import com.anubhavauth.bentobackend.entities.dtos.UserDTO;
+import com.anubhavauth.bentobackend.entities.persistentEntities.UserEntity;
 import com.anubhavauth.bentobackend.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -18,6 +18,7 @@ import java.util.Optional;
 public class UserController {
     private final UserService userService;
 
+    @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
     }
@@ -35,11 +36,7 @@ public class UserController {
     public ResponseEntity<UserEntity> userProfile(@RequestParam ObjectId userId) {
         try {
             Optional<UserEntity> userById = userService.getUserById(userId);
-            if (userById.isPresent()){
-                return new ResponseEntity<>(userById.get(), HttpStatus.OK);
-            }else {
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            }
+            return userById.map(userEntity -> new ResponseEntity<>(userEntity, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
         }catch (Exception e){
             log.error("Exception occurred when finding user{}", e.getMessage());
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -69,7 +66,6 @@ public class UserController {
         }
     }
 
-//    TODO  when user deletes profile restaurants should also be deleted
 //    @Transactional
     @DeleteMapping("/profile")
     public ResponseEntity<String> userDeleteProfile(@RequestParam ObjectId userId) {

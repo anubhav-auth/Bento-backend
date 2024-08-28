@@ -1,4 +1,4 @@
-package com.anubhavauth.bentobackend.entities;
+package com.anubhavauth.bentobackend.entities.persistentEntities;
 
 import com.anubhavauth.bentobackend.entities.enums.Roles;
 import lombok.AllArgsConstructor;
@@ -25,6 +25,7 @@ public class UserEntity {
     private String password;
     private List<Roles> roles;
     private List<ObjectId> restaurantIds;
+    private List<ObjectId> reviewIds;
     private Long phone;
     private String address;
     private String profilePicture;
