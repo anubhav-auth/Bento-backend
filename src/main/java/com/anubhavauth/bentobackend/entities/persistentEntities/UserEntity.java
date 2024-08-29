@@ -24,8 +24,12 @@ public class UserEntity {
     private String email;
     private String password;
     private List<Roles> roles;
+    private ObjectId orderDel;
+    private List<ObjectId> orderDelHistory;
     private List<ObjectId> restaurantIds;
     private List<ObjectId> reviewIds;
+    private List<ObjectId> paymentIds;
+    private List<ObjectId> orderIds;
     private Long phone;
     private String address;
     private String profilePicture;

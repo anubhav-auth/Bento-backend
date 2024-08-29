@@ -1,7 +1,7 @@
 package com.anubhavauth.bentobackend.entities.enums;
 
 public enum OrderStatus {
-    PENDING,
+    WAITING_FOR_APPROVAL,
     PREPARING,
     DELIVERING,
     DELIVERED,

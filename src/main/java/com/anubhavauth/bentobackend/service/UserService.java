@@ -29,7 +29,12 @@ public class UserService {
         if (user.getRoles().contains(Roles.RESTAURANT_OWNER)){
             user.setRestaurantIds(Collections.emptyList());
         }
+        if (user.getRoles().contains(Roles.DELIVERY_PERSONNEL)){
+            user.setOrderDelHistory(Collections.emptyList());
+            user.setOrderDel(null);
+        }
         if (user.getRoles().contains(Roles.CUSTOMER)){
+            user.setOrderIds(Collections.emptyList());
             user.setReviewIds(Collections.emptyList());
         }
         userRepository.save(user);
@@ -52,6 +57,15 @@ public class UserService {
             }
         }
         userRepository.deleteById(id);
+    }
 
+    public void updateUserRoles(ObjectId userId, List<Roles> roles) {
+        Optional<UserEntity> userById = getUserById(userId);
+        if (userById.isPresent()) {
+            userById.get().setRoles(roles);
+            userRepository.save(userById.get());
+        }else {
+            throw new RuntimeException("User not found");
+        }
     }
 }

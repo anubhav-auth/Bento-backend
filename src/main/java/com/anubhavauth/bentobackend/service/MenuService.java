@@ -51,6 +51,15 @@ public class MenuService {
         return new ResponseEntity<>(allById, HttpStatus.OK);
     }
 
+    public MenuItemEntity fetchMenuItemById(ObjectId menuItemId) {
+        Optional<MenuItemEntity> item = menuRepository.findById(menuItemId);
+        if (item.isPresent()) {
+            return item.get();
+        }else {
+            throw new RuntimeException("menu item not found");
+        }
+    }
+
     public ResponseEntity<String> updateMenuItem(ObjectId menuItem, MenuItemDTO menuItemDTO) {
         Optional<MenuItemEntity> byId = menuRepository.findById(menuItem);
         if (byId.isPresent()) {

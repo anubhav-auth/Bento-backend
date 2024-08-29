@@ -31,8 +31,10 @@ public class RestaurantEntity {
     private Double rating;
     private List<ObjectId> reviews;
     private List<Map<DayOfWeek, String>> openingHours;
+    private List<ObjectId> paymentIds;
     private List<ObjectId> menuItems;
-    private List<ObjectId> orders;
+    private List<ObjectId> currentOrders;
+    private List<ObjectId> pastOrders;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }

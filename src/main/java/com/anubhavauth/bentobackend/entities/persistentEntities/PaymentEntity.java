@@ -21,7 +21,9 @@ import java.time.LocalDateTime;
 public class PaymentEntity {
     @Id
     private ObjectId id;
-    private String orderId;
+    private ObjectId orderId;
+    private ObjectId userId;
+    private ObjectId restaurantId;
     private Double amount;
     private PaymentMethod paymentMethod;
     private String transactionId;
