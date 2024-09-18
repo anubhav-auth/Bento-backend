@@ -24,7 +24,7 @@ public class RestaurantEntity {
     private ObjectId id;
     private ObjectId ownerId;
     private String name;
-    private String address;
+    private Address address;
     private String phone;
     private String email;
     private List<Cuisines> cuisines;

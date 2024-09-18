@@ -21,9 +21,12 @@ public class DeliveryEntity {
     private ObjectId id;
     private ObjectId orderId;
     private ObjectId deliveryPersonnelId;
+    private ObjectId addressId;
+    private DeliveryStatus deliveryStatus;
+    private LocalDateTime assignTime;
     private LocalDateTime pickupTime;
     private LocalDateTime deliveryTime;
-    private DeliveryStatus deliveryStatus;
+
 }
 /*
 •	Relationships:

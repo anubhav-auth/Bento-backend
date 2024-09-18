@@ -83,6 +83,7 @@ public class RestaurantController {
                                 .cuisines(restaurantdto.getCuisines())
                                 .reviews(null)
                                 .rating(null)
+                                .paymentIds(Collections.emptyList())
                                 .openingHours(restaurantdto.getOpeningHours())
                                 .menuItems(Collections.emptyList())
                                 .currentOrders(Collections.emptyList())

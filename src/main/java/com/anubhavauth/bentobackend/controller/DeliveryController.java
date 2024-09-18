@@ -1,6 +1,8 @@
 package com.anubhavauth.bentobackend.controller;
 
 
+import com.anubhavauth.bentobackend.entities.dtos.DeliveryDTO;
+import com.anubhavauth.bentobackend.entities.enums.DeliveryStatus;
 import com.anubhavauth.bentobackend.entities.persistentEntities.UserEntity;
 import com.anubhavauth.bentobackend.service.DeliveryService;
 import lombok.extern.slf4j.Slf4j;
@@ -29,17 +31,29 @@ public class DeliveryController {
             List<UserEntity> allDeliveryPersonnelAvailable = deliveryService.getAllDeliveryPersonnelAvailable();
             return new ResponseEntity<>(allDeliveryPersonnelAvailable, HttpStatus.OK);
         }catch (Exception e){
-           log.error("Error getting available personnel",e.getMessage());
+           log.error("Error getting available personnel {}",e.getMessage());
            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @PutMapping("/order-assign")
     public ResponseEntity<String> assignDeliveryPersonnel(@RequestParam ObjectId orderId, @RequestParam ObjectId deliveryPersonnelId) {
-        return new ResponseEntity<>("delivery personnel", HttpStatus.OK);
+        try {
+            deliveryService.assignDeliveryPersonnel(orderId, deliveryPersonnelId);
+            return new ResponseEntity<>("Order assigned successfully", HttpStatus.OK);
+        }catch (Exception e){
+            log.error("Error assigning delivery personnel {}",e.getMessage());
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
-    @PutMapping("/orders/{orderId}/delivery-status")
-    public ResponseEntity<String> updateDeliveryStatus(@PathVariable ObjectId orderId) {
-        return new ResponseEntity<>("delivery status", HttpStatus.OK);
+    @PutMapping("/status/update")
+    public ResponseEntity<String> updateDeliveryStatus(@RequestParam ObjectId orderId, @RequestBody DeliveryStatus deliveryStatus) {
+        try {
+            deliveryService.updateDeliveryStatus(orderId, deliveryStatus);
+            return new ResponseEntity<>("Order updated successfully", HttpStatus.OK);
+        }catch (Exception e){
+            log.error("Error updating delivery status {}",e.getMessage());
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

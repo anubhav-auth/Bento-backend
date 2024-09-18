@@ -1,6 +1,7 @@
 package com.anubhavauth.bentobackend.controller;
 
 import com.anubhavauth.bentobackend.entities.dtos.UserDTO;
+import com.anubhavauth.bentobackend.entities.persistentEntities.Address;
 import com.anubhavauth.bentobackend.entities.persistentEntities.UserEntity;
 import com.anubhavauth.bentobackend.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -10,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -52,7 +54,9 @@ public class UserController {
             if (userById.isPresent()){
                 userById.get().setName(userDTO.getName());
                 userById.get().setEmail(userDTO.getEmail());
-                userById.get().setAddress(userDTO.getAddress());
+                List<Address> newAddress = userById.get().getAddress();
+                newAddress.add(userDTO.getAddress());
+                userById.get().setAddress(newAddress);
                 userById.get().setProfilePicture(userDTO.getProfilePicture());
 
                 userService.updateUser(userById.get());

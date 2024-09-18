@@ -18,7 +18,7 @@ import java.util.List;
 public class OrderDTO {
     private ObjectId userId;
     private ObjectId restaurantId;
-    private List<MenuItemEntity> items;
+    private List<ObjectId> items;
     private Double totalPrice;
     private String deliveryAddress;
     private ObjectId paymentId;

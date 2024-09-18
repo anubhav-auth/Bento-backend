@@ -55,18 +55,18 @@ public class OrderController {
     }
     
     @PostMapping("/place/cod")
-    public ResponseEntity<String> placeOrderCOD(@RequestParam ObjectId userId, @RequestParam ObjectId restaurantId, @RequestBody OrderDTO orderdto) {
+    public ResponseEntity<String> placeOrderCOD(@RequestBody OrderDTO orderdto) {
         try {
             orderService.createOrder(
                     OrderEntity.builder()
-                            .userId(userId)
-                            .restaurantId(restaurantId)
+                            .userId(orderdto.getUserId())
+                            .restaurantId(orderdto.getRestaurantId())
                             .paymentId(orderdto.getPaymentId())
                             .items(orderdto.getItems())
                             .totalPrice(orderdto.getTotalPrice())
                             .status(OrderStatus.WAITING_FOR_APPROVAL)
                             .deliveryAddress(orderdto.getDeliveryAddress())
-                            .paymentStatus(PaymentStatus.PAID)
+                            .paymentStatus(PaymentStatus.PENDING)
                             .placedOn(LocalDateTime.now())
                             .updatedOn(LocalDateTime.now())
                             .build()
@@ -87,7 +87,7 @@ public class OrderController {
     }
 
     @PutMapping("/status")
-    public ResponseEntity<String> updateOrderStatus(@PathVariable ObjectId orderId, OrderStatus status) {
+    public ResponseEntity<String> updateOrderStatus(@RequestParam ObjectId orderId, @RequestBody OrderStatus status) {
         try {
             OrderEntity orderById = orderService.getOrderById(orderId);
             orderById.setStatus(status);

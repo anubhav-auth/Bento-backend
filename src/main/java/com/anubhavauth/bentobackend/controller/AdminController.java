@@ -33,7 +33,7 @@ public class AdminController {
                 .roles(List.of(Roles.ADMINISTRATOR))
                 .paymentIds(Collections.emptyList())
                 .phone(userdto.getPhone())
-                .address(userdto.getAddress())
+                .address(List.of(userdto.getAddress()))
                 .profilePicture(userdto.getProfilePicture())
                 .createdAt(LocalDateTime.now())
                 .updatedAt(LocalDateTime.now())

@@ -2,6 +2,7 @@ package com.anubhavauth.bentobackend.entities.dtos;
 
 
 import com.anubhavauth.bentobackend.entities.enums.Cuisines;
+import com.anubhavauth.bentobackend.entities.persistentEntities.Address;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,7 +21,7 @@ import java.util.Map;
 public class RestaurantDTO {
     private ObjectId userId;
     private String name;
-    private String address;
+    private Address address;
     private String phone;
     private String email;
     private List<Cuisines> cuisines;

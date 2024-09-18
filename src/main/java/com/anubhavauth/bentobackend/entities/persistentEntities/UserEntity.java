@@ -31,11 +31,13 @@ public class UserEntity {
     private List<ObjectId> paymentIds;
     private List<ObjectId> orderIds;
     private Long phone;
-    private String address;
+    private List<Address> address;
     private String profilePicture;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }
+
+
 
 /*
 relationships

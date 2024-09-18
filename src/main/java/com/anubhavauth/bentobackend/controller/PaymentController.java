@@ -34,7 +34,7 @@ public class PaymentController {
         try{
             ObjectId payment = paymentService.createPayment(
                     PaymentEntity.builder()
-                            .orderId(paymentdto.getUserId())
+                            .orderId(paymentdto.getOrderId())
                             .userId(paymentdto.getUserId())
                             .restaurantId(paymentdto.getRestaurantId())
                             .amount(paymentdto.getAmount())

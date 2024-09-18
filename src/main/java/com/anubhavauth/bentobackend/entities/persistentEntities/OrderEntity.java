@@ -25,7 +25,8 @@ public class OrderEntity {
     private ObjectId userId;
     private ObjectId restaurantId;
     private ObjectId paymentId;
-    private List<MenuItemEntity> items;
+    private ObjectId deliveryId;
+    private List<ObjectId> items;
     private Double totalPrice;
     private OrderStatus status;
     private String deliveryAddress;
