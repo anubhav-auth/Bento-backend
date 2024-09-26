@@ -89,4 +89,12 @@ public class MenuService {
         }
     }
 
+    public List<MenuItemEntity> getMenuItemByName(String name) {
+        try {
+            return menuRepository.findByNameContainingIgnoreCase(name);
+        }catch (Exception e) {
+            log.error(e.getMessage());
+            throw new RuntimeException("menu items doesnt exist");
+        }
+    }
 }

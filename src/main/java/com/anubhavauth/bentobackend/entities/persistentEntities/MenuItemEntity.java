@@ -1,6 +1,8 @@
 package com.anubhavauth.bentobackend.entities.persistentEntities;
 
+import com.anubhavauth.bentobackend.ObjectIdSerializer;
 import com.anubhavauth.bentobackend.entities.enums.DishCategory;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,8 +21,12 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class MenuItemEntity {
     @Id
+    @JsonSerialize(using = ObjectIdSerializer.class)
     private ObjectId id;
+
+    @JsonSerialize(using = ObjectIdSerializer.class)
     private ObjectId restaurantId;
+
     private String name;
     private String description;
     private int price;

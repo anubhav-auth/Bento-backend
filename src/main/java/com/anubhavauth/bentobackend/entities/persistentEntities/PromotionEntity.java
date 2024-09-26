@@ -1,5 +1,7 @@
 package com.anubhavauth.bentobackend.entities.persistentEntities;
 
+import com.anubhavauth.bentobackend.ObjectIdSerializer;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,7 +19,9 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class PromotionEntity {
     @Id
+    @JsonSerialize(using = ObjectIdSerializer.class)
     private ObjectId id;
+
     private String discountCode;
     private String description;
     private Double discountPercentage;

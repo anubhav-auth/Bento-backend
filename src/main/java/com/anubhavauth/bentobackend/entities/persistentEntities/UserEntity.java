@@ -1,6 +1,8 @@
 package com.anubhavauth.bentobackend.entities.persistentEntities;
 
+import com.anubhavauth.bentobackend.ObjectIdSerializer;
 import com.anubhavauth.bentobackend.entities.enums.Roles;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,18 +21,31 @@ import java.util.List;
 @AllArgsConstructor
 public class UserEntity {
     @Id
+    @JsonSerialize(using = ObjectIdSerializer.class)
     private ObjectId id;
+
     private String name;
     private String email;
     private String password;
     private List<Roles> roles;
     private ObjectId orderDel;
+
+    @JsonSerialize(contentUsing = ObjectIdSerializer.class)
     private List<ObjectId> orderDelHistory;
+
+    @JsonSerialize(contentUsing = ObjectIdSerializer.class)
     private List<ObjectId> restaurantIds;
+
+    @JsonSerialize(contentUsing = ObjectIdSerializer.class)
     private List<ObjectId> reviewIds;
+
+    @JsonSerialize(contentUsing = ObjectIdSerializer.class)
     private List<ObjectId> paymentIds;
+
+    @JsonSerialize(contentUsing = ObjectIdSerializer.class)
     private List<ObjectId> orderIds;
-    private Long phone;
+
+    private String phone;
     private List<Address> address;
     private String profilePicture;
     private LocalDateTime createdAt;

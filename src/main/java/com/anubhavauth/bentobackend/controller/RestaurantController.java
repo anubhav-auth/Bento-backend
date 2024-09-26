@@ -81,6 +81,7 @@ public class RestaurantController {
                                 .phone(restaurantdto.getPhone())
                                 .email(restaurantdto.getEmail())
                                 .cuisines(restaurantdto.getCuisines())
+                                .imageUrl(restaurantdto.getImageUrl())
                                 .reviews(null)
                                 .rating(null)
                                 .paymentIds(Collections.emptyList())
@@ -138,19 +139,7 @@ public class RestaurantController {
         }
     }
 
-    @GetMapping("/search")
-    public ResponseEntity<List<RestaurantEntity>> searchRestaurant(@RequestParam String name) {
-        try {
-            List<RestaurantEntity> restaurants = restaurantService.getRestaurantsByName(name);
-            if (restaurants.isEmpty()) {
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-            }
-            return new ResponseEntity<>(restaurants, HttpStatus.OK);
-        } catch (Exception e) {
-            log.error("Error searching Restaurant {}", e.getMessage());
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
+
 
 
     @PostMapping("/menu")
@@ -172,6 +161,30 @@ public class RestaurantController {
                             .updatedAt(LocalDateTime.now())
                             .build()
             );
+            return new ResponseEntity<>("menu created", HttpStatus.CREATED);
+        } catch (Exception e) {
+            log.error("Error creating menu {}", e.getMessage());
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    @PostMapping("/menu-bulk")
+    public ResponseEntity<String> addMenuItemBulk(@RequestBody List<MenuItemDTO> menuitem) {
+        try {
+            for (MenuItemDTO menuitemDTO : menuitem) {
+                menuService.createMenuItem(
+                        MenuItemEntity.builder()
+                                .restaurantId(menuitemDTO.getRestaurantId())
+                                .name(menuitemDTO.getName())
+                                .description(menuitemDTO.getDescription())
+                                .price(menuitemDTO.getPrice())
+                                .imageUrl(menuitemDTO.getImageUrl())
+                                .availability(menuitemDTO.getAvailability())
+                                .category(menuitemDTO.getCategory())
+                                .createdAt(LocalDateTime.now())
+                                .updatedAt(LocalDateTime.now())
+                                .build()
+                );
+            }
             return new ResponseEntity<>("menu created", HttpStatus.CREATED);
         } catch (Exception e) {
             log.error("Error creating menu {}", e.getMessage());

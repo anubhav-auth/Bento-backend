@@ -1,6 +1,8 @@
 package com.anubhavauth.bentobackend.entities.persistentEntities;
 
+import com.anubhavauth.bentobackend.ObjectIdSerializer;
 import com.anubhavauth.bentobackend.entities.enums.Cuisines;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,20 +23,36 @@ import java.util.Map;
 @AllArgsConstructor
 public class RestaurantEntity {
     @Id
+    @JsonSerialize(using = ObjectIdSerializer.class)
     private ObjectId id;
+
+    @JsonSerialize(using = ObjectIdSerializer.class)
     private ObjectId ownerId;
+
     private String name;
     private Address address;
     private String phone;
     private String email;
     private List<Cuisines> cuisines;
     private Double rating;
+    private String imageUrl;
+    @JsonSerialize(contentUsing = ObjectIdSerializer.class)
     private List<ObjectId> reviews;
+
     private List<Map<DayOfWeek, String>> openingHours;
+
+    @JsonSerialize(contentUsing = ObjectIdSerializer.class)
     private List<ObjectId> paymentIds;
+
+    @JsonSerialize(contentUsing = ObjectIdSerializer.class)
     private List<ObjectId> menuItems;
+
+    @JsonSerialize(contentUsing = ObjectIdSerializer.class)
     private List<ObjectId> currentOrders;
+
+    @JsonSerialize(contentUsing = ObjectIdSerializer.class)
     private List<ObjectId> pastOrders;
+
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }

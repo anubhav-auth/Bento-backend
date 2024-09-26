@@ -21,6 +21,7 @@ import java.util.Map;
 public class RestaurantDTO {
     private ObjectId userId;
     private String name;
+    private String imageUrl;
     private Address address;
     private String phone;
     private String email;

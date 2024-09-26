@@ -1,7 +1,9 @@
 package com.anubhavauth.bentobackend.entities.persistentEntities;
 
+import com.anubhavauth.bentobackend.ObjectIdSerializer;
 import com.anubhavauth.bentobackend.entities.enums.OrderStatus;
 import com.anubhavauth.bentobackend.entities.enums.PaymentStatus;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,11 +23,21 @@ import java.util.List;
 public class OrderEntity {
 
     @Id
+    @JsonSerialize(using = ObjectIdSerializer.class)
     private ObjectId id;
+
+    @JsonSerialize(using = ObjectIdSerializer.class)
     private ObjectId userId;
+
+    @JsonSerialize(using = ObjectIdSerializer.class)
     private ObjectId restaurantId;
+
+    @JsonSerialize(using = ObjectIdSerializer.class)
     private ObjectId paymentId;
+
+    @JsonSerialize(using = ObjectIdSerializer.class)
     private ObjectId deliveryId;
+
     private List<ObjectId> items;
     private Double totalPrice;
     private OrderStatus status;

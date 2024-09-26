@@ -1,6 +1,8 @@
 package com.anubhavauth.bentobackend.entities.persistentEntities;
 
+import com.anubhavauth.bentobackend.ObjectIdSerializer;
 import com.anubhavauth.bentobackend.entities.enums.DeliveryStatus;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,10 +20,18 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class DeliveryEntity {
     @Id
+    @JsonSerialize(using = ObjectIdSerializer.class)
     private ObjectId id;
+
+    @JsonSerialize(using = ObjectIdSerializer.class)
     private ObjectId orderId;
+
+    @JsonSerialize(using = ObjectIdSerializer.class)
     private ObjectId deliveryPersonnelId;
+
+    @JsonSerialize(using = ObjectIdSerializer.class)
     private ObjectId addressId;
+
     private DeliveryStatus deliveryStatus;
     private LocalDateTime assignTime;
     private LocalDateTime pickupTime;

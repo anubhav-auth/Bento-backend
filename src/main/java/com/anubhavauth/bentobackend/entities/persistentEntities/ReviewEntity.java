@@ -1,5 +1,7 @@
 package com.anubhavauth.bentobackend.entities.persistentEntities;
 
+import com.anubhavauth.bentobackend.ObjectIdSerializer;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,9 +20,15 @@ import java.time.LocalDateTime;
 public class ReviewEntity {
 
     @Id
+    @JsonSerialize(using = ObjectIdSerializer.class)
     private ObjectId id;
+
+    @JsonSerialize(using = ObjectIdSerializer.class)
     private ObjectId userId;
+
+    @JsonSerialize(using = ObjectIdSerializer.class)
     private ObjectId restaurantId;
+
     private double rating;
     private String comment;
     private LocalDateTime reviewedAt;
